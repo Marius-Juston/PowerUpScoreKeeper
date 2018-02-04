@@ -7,17 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/PowerUpScoreKeepinig.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/PowerUpScoreKeepinig.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/PowerUpScoreKeepinig/PowerUpScoreKeepinig.jar" afterPath="$PROJECT_DIR$/out/artifacts/PowerUpScoreKeepinig/PowerUpScoreKeepinig.jar" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/PowerUpScoreKeepinig/PowerUpScoreKeepinig.jnlp" afterPath="$PROJECT_DIR$/out/artifacts/PowerUpScoreKeepinig/PowerUpScoreKeepinig.jnlp" />
-      <change beforePath="$PROJECT_DIR$/out/production/PowerUpScoreKeepinig/sample/Controller.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/PowerUpScoreKeepinig/sample/FieldElement.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/PowerUpScoreKeepinig/sample/Main.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/PowerUpScoreKeepinig/sample/sample.fxml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/org/waltonrobotics/Controller.java" afterPath="$PROJECT_DIR$/src/org/waltonrobotics/Controller.java" />
       <change beforePath="$PROJECT_DIR$/src/org/waltonrobotics/FieldElement.java" afterPath="$PROJECT_DIR$/src/org/waltonrobotics/FieldElement.java" />
-      <change beforePath="$PROJECT_DIR$/src/org/waltonrobotics/field.fxml" afterPath="$PROJECT_DIR$/src/org/waltonrobotics/field.fxml" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -94,12 +85,12 @@
               <caret line="90" column="33" lean-forward="false" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1894#1895#0" expanded="true" />
-                <element signature="e#1915#1916#0" expanded="true" />
-                <element signature="e#1941#1942#0" expanded="true" />
-                <element signature="e#1960#1961#0" expanded="true" />
-                <element signature="e#1996#1997#0" expanded="true" />
-                <element signature="e#2021#2022#0" expanded="true" />
+                <element signature="e#1893#1894#0" expanded="true" />
+                <element signature="e#1914#1915#0" expanded="true" />
+                <element signature="e#1940#1941#0" expanded="true" />
+                <element signature="e#1959#1960#0" expanded="true" />
+                <element signature="e#1995#1996#0" expanded="true" />
+                <element signature="e#2020#2021#0" expanded="true" />
                 <element signature="e#3287#3288#0" expanded="true" />
                 <element signature="e#3309#3310#0" expanded="true" />
                 <element signature="e#3340#3341#0" expanded="true" />
@@ -120,14 +111,21 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/waltonrobotics/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="226" column="0" lean-forward="true" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+            <state relative-caret-position="167">
+              <caret line="156" column="0" lean-forward="true" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3169#3621#0" expanded="false" />
-                <element signature="e#5037#6484#0" expanded="false" />
-                <element signature="e#9564#9565#0" expanded="true" />
-                <element signature="e#9607#9608#0" expanded="true" />
+                <element signature="e#3003#3194#0" expanded="false" />
+                <element signature="e#3446#3898#0" expanded="false" />
+                <element signature="e#4362#5238#0" expanded="false" />
+                <element signature="e#5318#6854#0" expanded="false" />
+                <element signature="e#6912#8533#0" expanded="false" />
+                <element signature="e#8598#8765#0" expanded="false" />
+                <element signature="e#8832#9002#0" expanded="false" />
+                <element signature="method#setBlueSideTOPossessed#0;class#Controller#0" expanded="false" />
+                <element signature="method#setRedSideTOPossessed#0;class#Controller#0" expanded="false" />
+                <element signature="method#powerUp#0;class#Controller#0" expanded="false" />
+                <element signature="method#setScore#0;class#Controller#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -136,8 +134,8 @@
       <file leaf-file-name="field.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/waltonrobotics/field.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="75">
+              <caret line="10" column="56" lean-forward="false" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -234,35 +232,6 @@
             <path>
               <item name="PowerUpScoreKeepinig" type="b2602c69:ProjectViewProjectNode" />
               <item name="PowerUpScoreKeepinig" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PowerUpScoreKeepinig" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PowerUpScoreKeepinig" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PowerUpScoreKeepinig" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PowerUpScoreKeepinig" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PowerUpScoreKeepinig" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PowerUpScoreKeepinig" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
-              <item name="PowerUpScoreKeepinig" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PowerUpScoreKeepinig" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PowerUpScoreKeepinig" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PowerUpScoreKeepinig" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PowerUpScoreKeepinig" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="waltonrobotics" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -471,7 +440,7 @@
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1517680050884" duration="2163000" />
       <workItem from="1517682453578" duration="11954000" />
-      <workItem from="1517718272015" duration="7687000" />
+      <workItem from="1517718272015" duration="8622000" />
     </task>
     <task id="LOCAL-00001" summary="renamed files and packages">
       <created>1517719909260</created>
@@ -484,35 +453,36 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23106000" />
+    <option name="totallyTimeSpent" value="24041000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1102" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39910814" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32887402" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21783784" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39910814" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -572,15 +542,9 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/org/waltonrobotics/Controller.java</url>
-          <line>173</line>
+          <line>202</line>
           <properties />
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/org/waltonrobotics/Controller.java</url>
-          <line>233</line>
-          <properties />
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="7" />
@@ -608,12 +572,12 @@
           <caret line="138" column="24" lean-forward="true" selection-start-line="138" selection-start-column="24" selection-end-line="138" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1894#1895#0" expanded="true" />
-            <element signature="e#1915#1916#0" expanded="true" />
-            <element signature="e#1941#1942#0" expanded="true" />
-            <element signature="e#1960#1961#0" expanded="true" />
-            <element signature="e#1996#1997#0" expanded="true" />
-            <element signature="e#2021#2022#0" expanded="true" />
+            <element signature="e#1893#1894#0" expanded="true" />
+            <element signature="e#1914#1915#0" expanded="true" />
+            <element signature="e#1940#1941#0" expanded="true" />
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#1995#1996#0" expanded="true" />
+            <element signature="e#2020#2021#0" expanded="true" />
             <element signature="e#3287#3288#0" expanded="true" />
             <element signature="e#3309#3310#0" expanded="true" />
             <element signature="e#3340#3341#0" expanded="true" />
@@ -647,10 +611,17 @@
           <caret line="110" column="36" lean-forward="true" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3169#3621#0" expanded="false" />
-            <element signature="e#5037#6484#0" expanded="false" />
-            <element signature="e#9564#9565#0" expanded="true" />
-            <element signature="e#9607#9608#0" expanded="true" />
+            <element signature="e#3003#3194#0" expanded="false" />
+            <element signature="e#3446#3898#0" expanded="false" />
+            <element signature="e#4362#5238#0" expanded="false" />
+            <element signature="e#5318#6854#0" expanded="false" />
+            <element signature="e#6912#8533#0" expanded="false" />
+            <element signature="e#8598#8765#0" expanded="false" />
+            <element signature="e#8832#9002#0" expanded="false" />
+            <element signature="method#setBlueSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#setRedSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#powerUp#0;class#Controller#0" expanded="false" />
+            <element signature="method#setScore#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -671,10 +642,17 @@
           <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3169#3621#0" expanded="false" />
-            <element signature="e#5037#6484#0" expanded="false" />
-            <element signature="e#9564#9565#0" expanded="true" />
-            <element signature="e#9607#9608#0" expanded="true" />
+            <element signature="e#3003#3194#0" expanded="false" />
+            <element signature="e#3446#3898#0" expanded="false" />
+            <element signature="e#4362#5238#0" expanded="false" />
+            <element signature="e#5318#6854#0" expanded="false" />
+            <element signature="e#6912#8533#0" expanded="false" />
+            <element signature="e#8598#8765#0" expanded="false" />
+            <element signature="e#8832#9002#0" expanded="false" />
+            <element signature="method#setBlueSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#setRedSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#powerUp#0;class#Controller#0" expanded="false" />
+            <element signature="method#setScore#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -717,10 +695,17 @@
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3169#3621#0" expanded="false" />
-            <element signature="e#5037#6484#0" expanded="false" />
-            <element signature="e#9564#9565#0" expanded="true" />
-            <element signature="e#9607#9608#0" expanded="true" />
+            <element signature="e#3003#3194#0" expanded="false" />
+            <element signature="e#3446#3898#0" expanded="false" />
+            <element signature="e#4362#5238#0" expanded="false" />
+            <element signature="e#5318#6854#0" expanded="false" />
+            <element signature="e#6912#8533#0" expanded="false" />
+            <element signature="e#8598#8765#0" expanded="false" />
+            <element signature="e#8832#9002#0" expanded="false" />
+            <element signature="method#setBlueSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#setRedSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#powerUp#0;class#Controller#0" expanded="false" />
+            <element signature="method#setScore#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -763,12 +748,12 @@
           <caret line="90" column="33" lean-forward="false" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1894#1895#0" expanded="true" />
-            <element signature="e#1915#1916#0" expanded="true" />
-            <element signature="e#1941#1942#0" expanded="true" />
-            <element signature="e#1960#1961#0" expanded="true" />
-            <element signature="e#1996#1997#0" expanded="true" />
-            <element signature="e#2021#2022#0" expanded="true" />
+            <element signature="e#1893#1894#0" expanded="true" />
+            <element signature="e#1914#1915#0" expanded="true" />
+            <element signature="e#1940#1941#0" expanded="true" />
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#1995#1996#0" expanded="true" />
+            <element signature="e#2020#2021#0" expanded="true" />
             <element signature="e#3287#3288#0" expanded="true" />
             <element signature="e#3309#3310#0" expanded="true" />
             <element signature="e#3340#3341#0" expanded="true" />
@@ -787,8 +772,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/waltonrobotics/field.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="75">
+          <caret line="10" column="56" lean-forward="false" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
           <folding />
         </state>
       </provider>
@@ -798,14 +783,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/waltonrobotics/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="226" column="0" lean-forward="true" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+        <state relative-caret-position="167">
+          <caret line="156" column="0" lean-forward="true" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3169#3621#0" expanded="false" />
-            <element signature="e#5037#6484#0" expanded="false" />
-            <element signature="e#9564#9565#0" expanded="true" />
-            <element signature="e#9607#9608#0" expanded="true" />
+            <element signature="e#3003#3194#0" expanded="false" />
+            <element signature="e#3446#3898#0" expanded="false" />
+            <element signature="e#4362#5238#0" expanded="false" />
+            <element signature="e#5318#6854#0" expanded="false" />
+            <element signature="e#6912#8533#0" expanded="false" />
+            <element signature="e#8598#8765#0" expanded="false" />
+            <element signature="e#8832#9002#0" expanded="false" />
+            <element signature="method#setBlueSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#setRedSideTOPossessed#0;class#Controller#0" expanded="false" />
+            <element signature="method#powerUp#0;class#Controller#0" expanded="false" />
+            <element signature="method#setScore#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>

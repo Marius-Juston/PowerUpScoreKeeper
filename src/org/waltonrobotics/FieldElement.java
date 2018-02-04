@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class FieldElement {
+class FieldElement {
 
 	private static final SecureRandom secureRandom = new SecureRandom();
 	private static boolean stop;
@@ -17,8 +17,8 @@ public class FieldElement {
 	private final Color color;
 	private final Timeline timeline = new Timeline();
 	private final Timeline timeline2 = new Timeline();
+	private final SimpleIntegerProperty possessedSide = new SimpleIntegerProperty();
 	private int score = 1;
-	private SimpleIntegerProperty possessedSide = new SimpleIntegerProperty();
 	private Button redSide;
 	private Button blueSide;
 
@@ -70,7 +70,7 @@ public class FieldElement {
 		this.score = score;
 	}
 
-	public void update(SimpleIntegerProperty simpleIntegerProperty, int score) {
+	private void update(SimpleIntegerProperty simpleIntegerProperty, int score) {
 		if (!stop) {
 			simpleIntegerProperty.set(simpleIntegerProperty.get() + score);
 		}

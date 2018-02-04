@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,41 +24,69 @@ public class Controller implements Initializable {
 
 	private final SimpleDoubleProperty seconds = new SimpleDoubleProperty(0.0);
 	private final long timeIncrement = 100;
-	public VBox blueSwitch;
-	public VBox scale;
-	public VBox redSwitch;
-	public ToggleButton blueForce;
-	public ToggleButton blueBoost;
-	public ToggleButton blueLevitate;
-	public Label bluePoints;
-	public Label redPoints;
-	public ToggleButton gameToggleButton;
-	public ToggleButton redLevitate;
-	public ToggleButton redBoost;
-	public ToggleButton redForce;
-	public Button redSideSwitch2;
-	public Button redSideSwitch1;
-	public Button leverButton1;
-	public Button neutralLever;
-	public Button leverButton2;
-	public Button blueSideSwitch2;
-	public Button blueNeutralSwitch;
-	public Button blueSideSwitch1;
-	public Button redNeutralSwitch;
-	public Label gameTime;
-	public Button resetButton;
-	public Button redLevitateCounter;
-	public Button redBoostCounter;
-	public Button redForceCounter;
-	public Button blueLevitateCounter;
-	public Button blueBoostCounter;
+	private final FieldElement[] fieldElements = new FieldElement[3];
+	private final SimpleIntegerProperty blueScore = new SimpleIntegerProperty(0);
+	private final SimpleIntegerProperty redScore = new SimpleIntegerProperty(0);
+	@FXML
+	private VBox blueSwitch;
+	@FXML
+	private VBox scale;
+	@FXML
+	private VBox redSwitch;
+	@FXML
+	private ToggleButton blueForce;
+	@FXML
+	private ToggleButton blueBoost;
+	@FXML
+	private ToggleButton blueLevitate;
+	@FXML
+	private Label bluePoints;
+	@FXML
+	private Label redPoints;
+	@FXML
+	private ToggleButton gameToggleButton;
+	@FXML
+	private ToggleButton redLevitate;
+	@FXML
+	private ToggleButton redBoost;
+	@FXML
+	private ToggleButton redForce;
+	@FXML
+	private Button redSideSwitch2;
+	@FXML
+	private Button redSideSwitch1;
+	@FXML
+	private Button leverButton1;
+	@FXML
+	private Button neutralLever;
+	@FXML
+	private Button leverButton2;
+	@FXML
+	private Button blueSideSwitch2;
+	@FXML
+	private Button blueNeutralSwitch;
+	@FXML
+	private Button blueSideSwitch1;
+	@FXML
+	private Button redNeutralSwitch;
+	@FXML
+	private Label gameTime;
+	@FXML
+	private Button resetButton;
+	@FXML
+	private Button redLevitateCounter;
+	@FXML
+	private Button redBoostCounter;
+	@FXML
+	private Button redForceCounter;
+	@FXML
+	private Button blueLevitateCounter;
+	@FXML
+	private Button blueBoostCounter;
+	@FXML
+	private Button blueForceCounter;
 
-	public Button blueForceCounter;
-	private FieldElement[] fieldElements = new FieldElement[3];
-	private SimpleIntegerProperty blueScore = new SimpleIntegerProperty(0);
-	private SimpleIntegerProperty redScore = new SimpleIntegerProperty(0);
-
-	public void randomizeElents() {
+	private void randomizeElements() {
 		for (FieldElement fieldElement : fieldElements) {
 			fieldElement.randomizeSides();
 		}
@@ -127,7 +156,7 @@ public class Controller implements Initializable {
 		SimpleIntegerProperty blueForceCount = new SimpleIntegerProperty(0);
 
 		resetButton.setOnAction(event -> {
-			randomizeElents();
+			randomizeElements();
 			seconds.set(0);
 			blueScore.set(0);
 			redScore.set(0);
@@ -167,7 +196,7 @@ public class Controller implements Initializable {
 			}
 		});
 
-		randomizeElents();
+		randomizeElements();
 
 		powerUp(redForce, redForceCounter, redForceCount, event -> {
 			if (gameToggleButton.isSelected()) {
@@ -179,38 +208,46 @@ public class Controller implements Initializable {
 					current[i] = fieldElements[i].getPossessedSide();
 				}
 
-				if (redForceCount.get() == 1) {
-					setRedSideTOPossessed(fieldElements[2]);
-					redSwitch.setDisable(true);
+				switch (redForceCount.get()) {
+					case 1:
+						setRedSideTOPossessed(fieldElements[2]);
+						redSwitch.setDisable(true);
 
-					timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-						fieldElements[2].setPossessedSide(current[2]);
-						redSwitch.setDisable(false);
-					}));
-				} else if (redForceCount.get() == 2) {
+						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
+							fieldElements[2].setPossessedSide(current[2]);
+							redSwitch.setDisable(false);
+							timeline1.stop();
+						}));
+						break;
+					case 2:
 
-					setRedSideTOPossessed(fieldElements[1]);
-					scale.setDisable(true);
+						setRedSideTOPossessed(fieldElements[1]);
+						scale.setDisable(true);
 
-					timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-						fieldElements[1].setPossessedSide(current[1]);
-						scale.setDisable(false);
-					}));
-				} else if (redForceCount.get() == 3) {
+						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
+							fieldElements[1].setPossessedSide(current[1]);
+							scale.setDisable(false);
+							timeline1.stop();
+						}));
+						break;
+					case 3:
 
-					setRedSideTOPossessed(fieldElements[2]);
-					redSwitch.setDisable(true);
+						setRedSideTOPossessed(fieldElements[2]);
+						redSwitch.setDisable(true);
 
-					setRedSideTOPossessed(fieldElements[1]);
-					scale.setDisable(true);
+						setRedSideTOPossessed(fieldElements[1]);
+						scale.setDisable(true);
 
-					timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-						fieldElements[1].setPossessedSide(current[1]);
-						scale.setDisable(false);
+						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
+							fieldElements[1].setPossessedSide(current[1]);
+							scale.setDisable(false);
 
-						fieldElements[2].setPossessedSide(current[2]);
-						redSwitch.setDisable(false);
-					}));
+							fieldElements[2].setPossessedSide(current[2]);
+							redSwitch.setDisable(false);
+
+							timeline1.stop();
+						}));
+						break;
 				}
 
 				if (redForceCount.get() != 0) {
@@ -223,7 +260,7 @@ public class Controller implements Initializable {
 		});
 		powerUp(blueForce, blueForceCounter, blueForceCount, event -> {
 			if (gameToggleButton.isSelected()) {
-				Timeline timeline1 = new Timeline(); // TODO put imer outside and inside the game start/stop event handler
+				Timeline timeline1 = new Timeline(); // TODO put Timeline outside and inside the game start/stop event handler
 
 				int[] current = new int[3];
 
@@ -231,38 +268,45 @@ public class Controller implements Initializable {
 					current[i] = fieldElements[i].getPossessedSide();
 				}
 
-				if (blueForceCount.get() == 1) {
-					setBlueSideTOPossessed(fieldElements[0]);
-					blueSwitch.setDisable(true);
+				switch (blueForceCount.get()) {
+					case 1:
+						setBlueSideTOPossessed(fieldElements[0]);
+						blueSwitch.setDisable(true);
 
-					timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-						fieldElements[0].setPossessedSide(current[0]);
-						blueSwitch.setDisable(false);
-					}));
-				} else if (blueForceCount.get() == 2) {
+						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
+							fieldElements[0].setPossessedSide(current[0]);
+							blueSwitch.setDisable(false);
+							timeline1.stop();
+						}));
+						break;
+					case 2:
 
-					setBlueSideTOPossessed(fieldElements[1]);
-					scale.setDisable(true);
+						setBlueSideTOPossessed(fieldElements[1]);
+						scale.setDisable(true);
 
-					timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-						fieldElements[1].setPossessedSide(current[1]);
-						scale.setDisable(false);
-					}));
-				} else if (blueForceCount.get() == 3) {
+						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
+							fieldElements[1].setPossessedSide(current[1]);
+							scale.setDisable(false);
+							timeline1.stop();
+						}));
+						break;
+					case 3:
 
-					setBlueSideTOPossessed(fieldElements[0]);
-					blueSwitch.setDisable(true);
+						setBlueSideTOPossessed(fieldElements[0]);
+						blueSwitch.setDisable(true);
 
-					setBlueSideTOPossessed(fieldElements[1]);
-					scale.setDisable(true);
+						setBlueSideTOPossessed(fieldElements[1]);
+						scale.setDisable(true);
 
-					timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-						fieldElements[1].setPossessedSide(current[1]);
-						scale.setDisable(false);
+						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
+							fieldElements[1].setPossessedSide(current[1]);
+							scale.setDisable(false);
 
-						fieldElements[0].setPossessedSide(current[0]);
-						blueSwitch.setDisable(false);
-					}));
+							fieldElements[0].setPossessedSide(current[0]);
+							blueSwitch.setDisable(false);
+							timeline1.stop();
+						}));
+						break;
 				}
 
 				if (blueForceCount.get() != 0) {
@@ -288,10 +332,12 @@ public class Controller implements Initializable {
 				blueLevitateCounter.setDisable(true);
 			}
 		});
+
+
 	}
 
 
-	public void setBlueSideTOPossessed(FieldElement fieldElement) {
+	private void setBlueSideTOPossessed(FieldElement fieldElement) {
 
 		if (fieldElement.getButtons()[0] == fieldElement.getBlueSide()) {
 			fieldElement.setPossessedSide(0);
@@ -301,7 +347,7 @@ public class Controller implements Initializable {
 	}
 
 
-	public void setRedSideTOPossessed(FieldElement fieldElement) {
+	private void setRedSideTOPossessed(FieldElement fieldElement) {
 		if (fieldElement.getButtons()[0] == fieldElement.getRedSide()) {
 			fieldElement.setPossessedSide(0);
 		} else {
@@ -309,7 +355,7 @@ public class Controller implements Initializable {
 		}
 	}
 
-	public void powerUp(ToggleButton toggleButton, Button counter, SimpleIntegerProperty count,
+	private void powerUp(ToggleButton toggleButton, Button counter, SimpleIntegerProperty count,
 		EventHandler<ActionEvent> onPowerUp) {
 		toggleButton.textProperty().bind(Bindings.concat(toggleButton.getText(), "(", count, ")"));
 		counter.setOnAction(event -> {
@@ -319,15 +365,16 @@ public class Controller implements Initializable {
 		});
 
 		toggleButton.setOnAction(onPowerUp);
+
 	}
 
-	public void setScore(int score) {
+	private void setScore(int score) {
 		for (int i = 0; i < fieldElements.length; i++) {
 			setScore(i, score);
 		}
 	}
 
-	public void setScore(int place, int score) {
+	private void setScore(int place, int score) {
 		fieldElements[place].setScore(score);
 	}
 }
