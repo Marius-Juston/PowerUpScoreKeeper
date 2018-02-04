@@ -11,24 +11,16 @@ import javafx.util.Duration;
 
 public class FieldElement {
 
-	private final Button[] buttons;
-	private SimpleIntegerProperty possessedSide = new SimpleIntegerProperty();
 	private static final SecureRandom secureRandom = new SecureRandom();
-
+	private static int score = 1;
+	private static boolean stop;
+	private final Button[] buttons;
 	private final Color color;
-
 	private final Timeline timeline = new Timeline();
 	private final Timeline timeline2 = new Timeline();
-
-	private static int score = 1;
-
-	public static int getScore() {
-		return score;
-	}
-
-	public static void setScore(int score) {
-		FieldElement.score = score;
-	}
+	private SimpleIntegerProperty possessedSide = new SimpleIntegerProperty();
+	private Button redSide;
+	private Button blueSide;
 
 	public FieldElement(Button rightSide, Button neutral, Button leftSide,
 		Color color, SimpleIntegerProperty pointsProperty, SimpleIntegerProperty oppositeProperty) {
@@ -38,14 +30,6 @@ public class FieldElement {
 			Duration.seconds(1),
 			event -> update(oppositeProperty, score)));
 		timeline2.setCycleCount(Animation.INDEFINITE);
-	}
-
-	public void update(SimpleIntegerProperty simpleIntegerProperty, int score)
-	{
-		if (!stop)
-		{
-			simpleIntegerProperty.set(simpleIntegerProperty.get() + score);
-		}
 	}
 
 	public FieldElement(Button rightSide, Button neutral, Button leftSide,
@@ -61,9 +45,10 @@ public class FieldElement {
 		for (int i = 0; i < buttons.length; i++) {
 			int finalI = i;
 			buttons[i].setOnAction(event -> {
-				if (!stop)
+				if (!stop) {
 					possessedSide.set(finalI);
-			}
+				}
+				}
 			);
 		}
 
@@ -71,6 +56,20 @@ public class FieldElement {
 			Duration.seconds(1),
 			event -> update(pointsProperty, score)));
 		timeline.setCycleCount(Animation.INDEFINITE);
+	}
+
+	public static int getScore() {
+		return score;
+	}
+
+	public static void setScore(int score) {
+		FieldElement.score = score;
+	}
+
+	public void update(SimpleIntegerProperty simpleIntegerProperty, int score) {
+		if (!stop) {
+			simpleIntegerProperty.set(simpleIntegerProperty.get() + score);
+		}
 	}
 
 	private void changeObserved(int oldSelected, int newSelected) {
@@ -82,19 +81,16 @@ public class FieldElement {
 		Button newButton = buttons[newSelected];
 		newButton.setStyle(newButton.getStyle() + setSelected);
 
-
-		if (!stop){
-		if(buttons[newSelected] ==( color == Color.RED?getRedSide(): getBlueSide()))
-		{
-			timeline.play();
-			timeline2.stop();
+		if (!stop) {
+			if (buttons[newSelected] == (color == Color.RED ? getRedSide() : getBlueSide())) {
+				timeline.play();
+				timeline2.stop();
+			} else {
+				timeline.stop();
+				timeline2.play();
+			}
 		}
-		else{
-			timeline.stop();
-			timeline2.play();
-		}}
 	}
-
 
 	public void randomizeSides() {
 		boolean rightIsBlue = secureRandom.nextBoolean();
@@ -116,20 +112,15 @@ public class FieldElement {
 		}
 	}
 
-	private Button redSide;
-	private Button blueSide;
-
 	public Button getBlueSide() {
 		return blueSide;
 	}
-
 
 	public Button getNeutral() {
 		return buttons[1];
 	}
 
-	private static boolean stop;
-	public void stop(){
+	public void stop() {
 		stop = true;
 
 		timeline2.stop();
@@ -145,8 +136,7 @@ public class FieldElement {
 
 	}
 
-	public void reset()
-	{
+	public void reset() {
 		possessedSide.set(1);
 		stop();
 	}

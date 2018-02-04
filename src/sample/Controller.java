@@ -14,30 +14,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sun.audio.AudioPlayer;
 
-public class Controller implements Initializable{
+public class Controller implements Initializable {
 
+	private final SimpleDoubleProperty seconds = new SimpleDoubleProperty(0.0);
+	private final long timeIncrement = 100;
 	public VBox blueSwitch;
 	public VBox scale;
 	public VBox redSwitch;
 	public ToggleButton blueForce;
 	public ToggleButton blueBoost;
 	public ToggleButton blueLevitate;
-
-
 	public Label bluePoints;
 	public Label redPoints;
 	public ToggleButton gameToggleButton;
 	public ToggleButton redLevitate;
 	public ToggleButton redBoost;
 	public ToggleButton redForce;
-
 	public FieldElement[] fieldElements = new FieldElement[3];
 	public Button redSideSwitch2;
 	public Button redSideSwitch1;
@@ -50,20 +45,19 @@ public class Controller implements Initializable{
 	public Button redNeutralSwitch;
 	public Label gameTime;
 	public Button resetButton;
-
 	private SimpleIntegerProperty blueScore = new SimpleIntegerProperty(0);
 	private SimpleIntegerProperty redScore = new SimpleIntegerProperty(0);
 
-	public void randomizeElents()
-	{
-		for (FieldElement fieldElement: fieldElements)
+	public void randomizeElents() {
+		for (FieldElement fieldElement : fieldElements) {
 			fieldElement.randomizeSides();
+		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		bluePoints.textProperty().bind(Bindings.concat("Blue: ",blueScore));
-		redPoints.textProperty().bind(Bindings.concat("Red: ",redScore));
+		bluePoints.textProperty().bind(Bindings.concat("Blue: ", blueScore));
+		redPoints.textProperty().bind(Bindings.concat("Red: ", redScore));
 
 		FieldElement.setScore(2);
 
@@ -79,38 +73,35 @@ public class Controller implements Initializable{
 			}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 
-
-
 		fieldElements[0] = new FieldElement(blueSideSwitch1, blueNeutralSwitch, blueSideSwitch2,
 			Color.BLUE, blueScore);
-		fieldElements[1] = new FieldElement(leverButton1, neutralLever, leverButton2, Color.BLUE, blueScore, redScore);
-		fieldElements[2] = new FieldElement(redSideSwitch1,redNeutralSwitch , redSideSwitch2,
+		fieldElements[1] = new FieldElement(leverButton1, neutralLever, leverButton2, Color.BLUE,
+			blueScore, redScore);
+		fieldElements[2] = new FieldElement(redSideSwitch1, redNeutralSwitch, redSideSwitch2,
 			Color.RED, redScore);
 
 		gameTime.textProperty().bind(Bindings.concat("Time: ", seconds.asString("%3.1f")));
 
-
-		for (FieldElement fieldElement: fieldElements)
+		for (FieldElement fieldElement : fieldElements) {
 			fieldElement.stop();
+		}
 
 		gameToggleButton.setOnAction(event ->
 			{
-				if (gameToggleButton.isSelected()){
+				if (gameToggleButton.isSelected()) {
 					gameToggleButton.setText("Stop");
 					timeline.play();
 					resetButton.setDisable(true);
 
-
-					for (FieldElement fieldElement: fieldElements)
+					for (FieldElement fieldElement : fieldElements) {
 						fieldElement.play();
-				}
-
-				else{
+					}
+				} else {
 					gameToggleButton.setText("Start");
 					resetButton.setDisable(false);
 					timeline.stop();
 
-					for (FieldElement fieldElement: fieldElements) {
+					for (FieldElement fieldElement : fieldElements) {
 						fieldElement.stop();
 					}
 				}
@@ -123,15 +114,11 @@ public class Controller implements Initializable{
 			blueScore.set(0);
 			redScore.set(0);
 
-			for (FieldElement fieldElement: fieldElements) {
+			for (FieldElement fieldElement : fieldElements) {
 				fieldElement.reset();
 			}
 		});
 
 		randomizeElents();
 	}
-
-	private final SimpleDoubleProperty seconds = new SimpleDoubleProperty(0.0);
-
-	private final long timeIncrement = 100;
 }
