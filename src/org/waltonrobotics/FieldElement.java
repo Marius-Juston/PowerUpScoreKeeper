@@ -12,12 +12,12 @@ import javafx.util.Duration;
 public class FieldElement {
 
 	private static final SecureRandom secureRandom = new SecureRandom();
-	private static int score = 1;
 	private static boolean stop;
 	private final Button[] buttons;
 	private final Color color;
 	private final Timeline timeline = new Timeline();
 	private final Timeline timeline2 = new Timeline();
+	private int score = 1;
 	private SimpleIntegerProperty possessedSide = new SimpleIntegerProperty();
 	private Button redSide;
 	private Button blueSide;
@@ -45,9 +45,9 @@ public class FieldElement {
 		for (int i = 0; i < buttons.length; i++) {
 			int finalI = i;
 			buttons[i].setOnAction(event -> {
-				if (!stop) {
-					possessedSide.set(finalI);
-				}
+					if (!stop) {
+						possessedSide.set(finalI);
+					}
 				}
 			);
 		}
@@ -58,12 +58,16 @@ public class FieldElement {
 		timeline.setCycleCount(Animation.INDEFINITE);
 	}
 
-	public static int getScore() {
+	public Button[] getButtons() {
+		return buttons;
+	}
+
+	public int getScore() {
 		return score;
 	}
 
-	public static void setScore(int score) {
-		FieldElement.score = score;
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public void update(SimpleIntegerProperty simpleIntegerProperty, int score) {
@@ -82,7 +86,10 @@ public class FieldElement {
 		newButton.setStyle(newButton.getStyle() + setSelected);
 
 		if (!stop) {
-			if (buttons[newSelected] == (color == Color.RED ? getRedSide() : getBlueSide())) {
+			if (newSelected == 1) {
+				timeline.stop();
+				timeline2.stop();
+			} else if (newButton == (color == Color.RED ? getRedSide() : getBlueSide())) {
 				timeline.play();
 				timeline2.stop();
 			} else {
@@ -127,13 +134,26 @@ public class FieldElement {
 		timeline.stop();
 	}
 
-	private Button getRedSide() {
+	public Button getRedSide() {
 		return redSide;
 	}
 
 	public void play() {
 		stop = false;
 
+	}
+
+	public int getPossessedSide() {
+		return possessedSide.get();
+	}
+
+
+	public void setPossessedSide(int possessedSide) {
+		this.possessedSide.set(possessedSide);
+	}
+
+	public SimpleIntegerProperty possessedSideProperty() {
+		return possessedSide;
 	}
 
 	public void reset() {
