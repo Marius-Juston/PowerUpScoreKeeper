@@ -1,4 +1,4 @@
-package sample;
+package org.waltonrobotics;
 
 import java.security.SecureRandom;
 import javafx.animation.Animation;

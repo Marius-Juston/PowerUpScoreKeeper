@@ -1,4 +1,4 @@
-package sample;
+package org.waltonrobotics;
 
 import java.awt.Toolkit;
 import java.net.URL;
