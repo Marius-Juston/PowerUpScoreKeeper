@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,6 +18,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -24,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+//FIXME This is horrible code please improve readability and all. This has no structure. Marius Juston the creator.
 public class Controller implements Initializable {
 
 	private static final long timeIncrement = 100;
@@ -31,7 +35,7 @@ public class Controller implements Initializable {
 	private final FieldElement[] fieldElements = new FieldElement[3];
 	private final SimpleIntegerProperty blueScore = new SimpleIntegerProperty(0);
 	private final SimpleIntegerProperty redScore = new SimpleIntegerProperty(0);
-	Map<ToggleButton, Button> buttonButtonHashMap = new HashMap<ToggleButton, Button>();
+	private Map<ToggleButton, Button> buttonButtonHashMap = new HashMap<>();
 	@FXML
 	private VBox blueSwitch;
 	@FXML
@@ -142,15 +146,25 @@ public class Controller implements Initializable {
 
 		setScore(2);
 
-		Timeline timeline = new Timeline(new KeyFrame(
+		AtomicBoolean alreadyRun = new AtomicBoolean(false);
+		AtomicBoolean alreadyDisplayedWarning = new AtomicBoolean(false);
+		Timeline timeline = new Timeline();
+		timeline.getKeyFrames().add(new KeyFrame(
 			Duration.millis(timeIncrement),
 			event -> {
 				seconds.set(seconds.doubleValue() + timeIncrement / 1000.0);
-				if (Math.round(seconds.get()) == 15.0) {
+				if (!alreadyRun.get() && Math.round(seconds.get()) == 15.0) {
+					System.out.println("Print");
 					Toolkit.getDefaultToolkit().beep();
 					setScore(1);
+					alreadyRun.set(true);
+				} else if (!alreadyDisplayedWarning.get() && Math.round(seconds.get()) == 150.0) {
+					Alert alert = new Alert(AlertType.WARNING, "Game ended");
+					stop(timeline);
+					gameToggleButton.setSelected(false);
+					alert.show();
+					alreadyDisplayedWarning.set(true);
 				}
-
 			}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 
@@ -167,17 +181,9 @@ public class Controller implements Initializable {
 					timeline.play();
 					resetButton.setDisable(true);
 
-					for (FieldElement fieldElement : fieldElements) {
-						FieldElement.play();
-					}
+					FieldElement.play();
 				} else {
-					gameToggleButton.setText("Start");
-					resetButton.setDisable(false);
-					timeline.stop();
-
-					for (FieldElement fieldElement : fieldElements) {
-						fieldElement.stop();
-					}
+					stop(timeline);
 				}
 			}
 		);
@@ -557,11 +563,22 @@ public class Controller implements Initializable {
 	}
 
 	private void nextPower() {
-		if (!queue.isEmpty())
-		queue.remove(0);
+		if (!queue.isEmpty()) {
+			queue.remove(0);
+		}
 
 		if (!queue.isEmpty()) {
 			queue.get(0).run();
+		}
+	}
+
+	private void stop(Timeline timeline) {
+		gameToggleButton.setText("Start");
+		resetButton.setDisable(false);
+		timeline.stop();
+
+		for (FieldElement fieldElement : fieldElements) {
+			fieldElement.stop();
 		}
 	}
 }
