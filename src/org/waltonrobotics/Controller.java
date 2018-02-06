@@ -2,6 +2,9 @@ package org.waltonrobotics;
 
 import java.awt.Toolkit;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -9,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.WritableIntegerValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,11 +26,12 @@ import javafx.util.Duration;
 
 public class Controller implements Initializable {
 
+	private static final long timeIncrement = 100;
 	private final SimpleDoubleProperty seconds = new SimpleDoubleProperty(0.0);
-	private final long timeIncrement = 100;
 	private final FieldElement[] fieldElements = new FieldElement[3];
 	private final SimpleIntegerProperty blueScore = new SimpleIntegerProperty(0);
 	private final SimpleIntegerProperty redScore = new SimpleIntegerProperty(0);
+	Map<ToggleButton, Button> buttonButtonHashMap = new HashMap<ToggleButton, Button>();
 	@FXML
 	private VBox blueSwitch;
 	@FXML
@@ -85,6 +90,27 @@ public class Controller implements Initializable {
 	private Button blueBoostCounter;
 	@FXML
 	private Button blueForceCounter;
+	private ArrayList<Runnable> queue = new ArrayList<>();
+
+	public Controller() {
+	}
+
+	private static void setBlueSideTOPossessed(FieldElement fieldElement) {
+
+		if (fieldElement.getButtons()[0] == fieldElement.getBlueSide()) {
+			fieldElement.setPossessedSide(0);
+		} else {
+			fieldElement.setPossessedSide(2);
+		}
+	}
+
+	private static void setRedSideTOPossessed(FieldElement fieldElement) {
+		if (fieldElement.getButtons()[0] == fieldElement.getRedSide()) {
+			fieldElement.setPossessedSide(0);
+		} else {
+			fieldElement.setPossessedSide(2);
+		}
+	}
 
 	private void randomizeElements() {
 		for (FieldElement fieldElement : fieldElements) {
@@ -93,7 +119,16 @@ public class Controller implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public final void initialize(URL location, ResourceBundle resources) {
+		buttonButtonHashMap.put(redBoost, redBoostCounter);
+		buttonButtonHashMap.put(redForce, redForceCounter);
+		buttonButtonHashMap.put(redLevitate, redLevitateCounter);
+		buttonButtonHashMap.put(blueBoost, blueBoostCounter);
+		buttonButtonHashMap.put(blueForce, blueForceCounter);
+		buttonButtonHashMap.put(blueLevitate, blueLevitateCounter);
+
+		FieldElement.setBlueScore(blueScore);
+		FieldElement.setRedScore(redScore);
 
 		fieldElements[0] = new FieldElement(blueSideSwitch1, blueNeutralSwitch, blueSideSwitch2,
 			Color.BLUE, blueScore);
@@ -133,7 +168,7 @@ public class Controller implements Initializable {
 					resetButton.setDisable(true);
 
 					for (FieldElement fieldElement : fieldElements) {
-						fieldElement.play();
+						FieldElement.play();
 					}
 				} else {
 					gameToggleButton.setText("Start");
@@ -148,11 +183,11 @@ public class Controller implements Initializable {
 		);
 
 		SimpleIntegerProperty redLevitateCount = new SimpleIntegerProperty(0);
-		SimpleIntegerProperty redBoostCount = new SimpleIntegerProperty(0);
+		WritableIntegerValue redBoostCount = new SimpleIntegerProperty(0);
 		SimpleIntegerProperty redForceCount = new SimpleIntegerProperty(0);
 
 		SimpleIntegerProperty blueLevitateCount = new SimpleIntegerProperty(0);
-		SimpleIntegerProperty blueBoostCount = new SimpleIntegerProperty(0);
+		WritableIntegerValue blueBoostCount = new SimpleIntegerProperty(0);
 		SimpleIntegerProperty blueForceCount = new SimpleIntegerProperty(0);
 
 		resetButton.setOnAction(event -> {
@@ -160,6 +195,7 @@ public class Controller implements Initializable {
 			seconds.set(0);
 			blueScore.set(0);
 			redScore.set(0);
+			queue.clear();
 
 			blueLevitate.setDisable(false);
 			blueLevitateCounter.setDisable(false);
@@ -198,8 +234,110 @@ public class Controller implements Initializable {
 
 		randomizeElements();
 
-		powerUp(redForce, redForceCounter, redForceCount, event -> {
+		powerUp(redScore, redBoost, redBoostCounter, redBoostCount, () -> {
 			if (gameToggleButton.isSelected()) {
+				System.out.println("RED BOOST");
+				Timeline timeline1 = new Timeline();
+
+				switch (redBoostCount.get()) {
+					case 1:
+						setRedSideSwitch(2);
+
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								setRedSideSwitch(1);
+								nextPower();
+							}));
+						break;
+					case 2:
+
+						setScaleScore(2);
+
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								setScaleScore(1);
+								timeline1.stop();
+								nextPower();
+							}));
+						break;
+					case 3:
+
+						setRedSideSwitch(2);
+						setSwitchesScore(2);
+
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								setScaleScore(1);
+								setRedSideSwitch(1);
+								timeline1.stop();
+
+								nextPower();
+							}));
+						break;
+				}
+
+				if (redBoostCount.get() != 0) {
+					timeline1.play();
+
+				}
+			}
+		});
+		powerUp(blueScore, blueBoost, blueBoostCounter, blueBoostCount, () -> {
+
+			if (gameToggleButton.isSelected()) {
+				System.out.println("BLUE BOOST");
+				Timeline timeline1 = new Timeline();
+
+				switch (blueBoostCount.get()) {
+					case 1:
+						setBlueSideSwitch(2);
+
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								setBlueSideSwitch(1);
+								timeline1.stop();
+
+								nextPower();
+							}));
+						break;
+					case 2:
+
+						setScaleScore(2);
+
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								setScaleScore(1);
+								timeline1.stop();
+
+								nextPower();
+							}));
+						break;
+					case 3:
+
+						setBlueSideSwitch(2);
+						setSwitchesScore(2);
+
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								setBlueSideSwitch(1);
+								setSwitchesScore(1);
+								timeline1.stop();
+
+								nextPower();
+							}));
+						break;
+				}
+
+				if (blueBoostCount.get() != 0) {
+					timeline1.play();
+				}
+			}
+		});
+
+		powerUp(redScore, redForce, redForceCounter, redForceCount, () -> {
+
+			if (gameToggleButton.isSelected()) {
+				System.out.println("RED FORCE");
 				Timeline timeline1 = new Timeline();
 
 				int[] current = new int[3];
@@ -213,22 +351,27 @@ public class Controller implements Initializable {
 						setRedSideTOPossessed(fieldElements[2]);
 						redSwitch.setDisable(true);
 
-						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-							fieldElements[2].setPossessedSide(current[2]);
-							redSwitch.setDisable(false);
-							timeline1.stop();
-						}));
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								fieldElements[2].setPossessedSide(current[2]);
+								redSwitch.setDisable(false);
+								timeline1.stop();
+
+								nextPower();
+							}));
 						break;
 					case 2:
 
 						setRedSideTOPossessed(fieldElements[1]);
 						scale.setDisable(true);
 
-						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-							fieldElements[1].setPossessedSide(current[1]);
-							scale.setDisable(false);
-							timeline1.stop();
-						}));
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								fieldElements[1].setPossessedSide(current[1]);
+								scale.setDisable(false);
+								timeline1.stop();
+								nextPower();
+							}));
 						break;
 					case 3:
 
@@ -238,28 +381,30 @@ public class Controller implements Initializable {
 						setRedSideTOPossessed(fieldElements[1]);
 						scale.setDisable(true);
 
-						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-							fieldElements[1].setPossessedSide(current[1]);
-							scale.setDisable(false);
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								fieldElements[1].setPossessedSide(current[1]);
+								scale.setDisable(false);
 
-							fieldElements[2].setPossessedSide(current[2]);
-							redSwitch.setDisable(false);
+								fieldElements[2].setPossessedSide(current[2]);
+								redSwitch.setDisable(false);
 
-							timeline1.stop();
-						}));
+								timeline1.stop();
+								nextPower();
+							}));
 						break;
 				}
 
 				if (redForceCount.get() != 0) {
 					timeline1.play();
-					redForce.setDisable(true);
-					redForceCounter.setDisable(true);
 				}
 
 			}
 		});
-		powerUp(blueForce, blueForceCounter, blueForceCount, event -> {
+		powerUp(blueScore, blueForce, blueForceCounter, blueForceCount, () -> {
+
 			if (gameToggleButton.isSelected()) {
+				System.out.println("BLUE FORCE");
 				Timeline timeline1 = new Timeline(); // TODO put Timeline outside and inside the game start/stop event handler
 
 				int[] current = new int[3];
@@ -273,22 +418,28 @@ public class Controller implements Initializable {
 						setBlueSideTOPossessed(fieldElements[0]);
 						blueSwitch.setDisable(true);
 
-						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-							fieldElements[0].setPossessedSide(current[0]);
-							blueSwitch.setDisable(false);
-							timeline1.stop();
-						}));
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								fieldElements[0].setPossessedSide(current[0]);
+								blueSwitch.setDisable(false);
+								timeline1.stop();
+
+								nextPower();
+							}));
 						break;
 					case 2:
 
 						setBlueSideTOPossessed(fieldElements[1]);
 						scale.setDisable(true);
 
-						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-							fieldElements[1].setPossessedSide(current[1]);
-							scale.setDisable(false);
-							timeline1.stop();
-						}));
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								fieldElements[1].setPossessedSide(current[1]);
+								scale.setDisable(false);
+								timeline1.stop();
+
+								nextPower();
+							}));
 						break;
 					case 3:
 
@@ -298,74 +449,82 @@ public class Controller implements Initializable {
 						setBlueSideTOPossessed(fieldElements[1]);
 						scale.setDisable(true);
 
-						timeline1.getKeyFrames().add(new KeyFrame(Duration.seconds(10), event1 -> {
-							fieldElements[1].setPossessedSide(current[1]);
-							scale.setDisable(false);
+						timeline1.getKeyFrames()
+							.add(new KeyFrame(Duration.seconds(10), event1 -> {
+								fieldElements[1].setPossessedSide(current[1]);
+								scale.setDisable(false);
 
-							fieldElements[0].setPossessedSide(current[0]);
-							blueSwitch.setDisable(false);
-							timeline1.stop();
-						}));
+								fieldElements[0].setPossessedSide(current[0]);
+								blueSwitch.setDisable(false);
+								timeline1.stop();
+								nextPower();
+							}));
 						break;
 				}
 
 				if (blueForceCount.get() != 0) {
 					timeline1.play();
-					blueForce.setDisable(true);
-					blueForceCounter.setDisable(true);
 				}
 
 			}
 		});
 
-		powerUp(redLevitate, redLevitateCounter, redLevitateCount, event ->
-		{
-			if (gameToggleButton.isSelected() && redLevitateCount.get() == 3) {
-				redLevitate.setDisable(true);
-				redLevitateCounter.setDisable(true);
+		powerUp(redScore, redLevitate, redLevitateCounter, redLevitateCount, () -> {
+
+			System.out.println("RED LEVITATE");
+
+			if (gameToggleButton.isSelected()) {
+				nextPower();
+				if (redLevitateCount.get() == 3) {
+					redLevitate.setDisable(true);
+					redLevitateCounter.setDisable(true);
+				}
 			}
 		});
-		powerUp(blueLevitate, blueLevitateCounter, blueLevitateCount, event ->
-		{
-			if (gameToggleButton.isSelected() && blueLevitateCount.get() == 3) {
-				blueLevitate.setDisable(true);
-				blueLevitateCounter.setDisable(true);
+		powerUp(blueScore, blueLevitate, blueLevitateCounter, blueLevitateCount, () -> {
+			System.out.println("BLUE LEVITATE");
+			if (gameToggleButton.isSelected()) {
+				nextPower();
+
+				if (blueLevitateCount.get() == 3) {
+					blueLevitate.setDisable(true);
+					blueLevitateCounter.setDisable(true);
+				}
 			}
 		});
 
 
 	}
 
-
-	private void setBlueSideTOPossessed(FieldElement fieldElement) {
-
-		if (fieldElement.getButtons()[0] == fieldElement.getBlueSide()) {
-			fieldElement.setPossessedSide(0);
-		} else {
-			fieldElement.setPossessedSide(2);
-		}
-	}
-
-
-	private void setRedSideTOPossessed(FieldElement fieldElement) {
-		if (fieldElement.getButtons()[0] == fieldElement.getRedSide()) {
-			fieldElement.setPossessedSide(0);
-		} else {
-			fieldElement.setPossessedSide(2);
-		}
-	}
-
-	private void powerUp(ToggleButton toggleButton, Button counter, SimpleIntegerProperty count,
-		EventHandler<ActionEvent> onPowerUp) {
+	private void powerUp(SimpleIntegerProperty score, ToggleButton toggleButton, Button counter,
+		WritableIntegerValue count,
+		Runnable onPowerUp) {
 		toggleButton.textProperty().bind(Bindings.concat(toggleButton.getText(), "(", count, ")"));
 		counter.setOnAction(event -> {
-			if (gameToggleButton.isSelected()) {
-				count.set(Math.min(count.get() + 1, 3));
+			if (gameToggleButton.isSelected() && count.get() < 3) {
+				count.set(count.get() + 1);
+				score.set(score.get() + 5);
 			}
 		});
 
-		toggleButton.setOnAction(onPowerUp);
+		EventHandler<ActionEvent> actionEventEventHandler = event -> {
+			ToggleButton power = ((ToggleButton) event.getSource());
 
+			int c = Integer.parseInt(power.getText().replaceAll("\\D", ""));
+
+			if (c >= 1) {
+				if (!(power.equals(redLevitate) || power.equals(redLevitate))) {
+					power.setDisable(true);
+					buttonButtonHashMap.get(power).setDisable(true);
+				}
+				queue.add(onPowerUp);
+				if (queue.size() == 1) {
+					onPowerUp.run();
+				}
+			}
+		};
+
+		toggleButton.setOnAction(actionEventEventHandler);
 	}
 
 	private void setScore(int score) {
@@ -374,7 +533,35 @@ public class Controller implements Initializable {
 		}
 	}
 
+	private void setScaleScore(int score) {
+		setScore(1, score);
+	}
+
+	public void setBlueSideSwitch(int score) {
+		setScore(0, score);
+	}
+
+
+	public void setRedSideSwitch(int score) {
+		setScore(2, score);
+	}
+
+
+	private void setSwitchesScore(int score) {
+		setScore(0, score);
+		setScore(2, score);
+	}
+
 	private void setScore(int place, int score) {
 		fieldElements[place].setScore(score);
+	}
+
+	private void nextPower() {
+		if (!queue.isEmpty())
+		queue.remove(0);
+
+		if (!queue.isEmpty()) {
+			queue.get(0).run();
+		}
 	}
 }

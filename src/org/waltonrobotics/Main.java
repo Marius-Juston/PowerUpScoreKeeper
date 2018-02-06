@@ -8,12 +8,15 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	public Main() {
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public final void start(Stage primaryStage) throws java.io.IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("field.fxml"));
 		primaryStage.setTitle("Point simulation");
 		primaryStage.setScene(new Scene(root));

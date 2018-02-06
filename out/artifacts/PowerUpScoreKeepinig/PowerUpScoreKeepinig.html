@@ -1,51 +1,43 @@
-<html>
-<head>
+<html><head>
   <SCRIPT src="http://java.com/js/dtjava.js"></SCRIPT>
-  <script>
+<script>
     function launchApplication(jnlpfile) {
-      dtjava.launch({
-            url: 'PowerUpScoreKeepinig.jnlp'
-          },
-          {
-            javafx: '8.0+'
-          },
-          {}
-      );
-      return false;
+        dtjava.launch(            {
+                url : 'PowerUpScoreKeepinig.jnlp'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+        return false;
     }
-  </script>
+</script>
 
-  <script>
+<script>
     function javafxEmbedPowerUpScoreKeepinig_id() {
-      dtjava.embed(
-          {
-            id: 'PowerUpScoreKeepinig_id',
-            url: 'PowerUpScoreKeepinig.jnlp',
-            placeholder: 'javafx-app-placeholder',
-            width: '600',
-            height: '400'
-          },
-          {
-            javafx: '8.0+'
-          },
-          {}
-      );
+        dtjava.embed(
+            {
+                id : 'PowerUpScoreKeepinig_id',
+                url : 'PowerUpScoreKeepinig.jnlp',
+                placeholder : 'javafx-app-placeholder',
+                width : '600',
+                height : '400'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
     }
-
     <!-- Embed FX application into web page once page is loaded -->
     dtjava.addOnloadCallback(javafxEmbedPowerUpScoreKeepinig_id);
-  </script>
+</script>
 
-</head>
-<body>
+</head><body>
 <h2>Test page for <b>PowerUpScoreKeepinig</b></h2>
-<b>Webstart:</b> <a href='PowerUpScoreKeepinig.jnlp'
-                    onclick="return launchApplication('PowerUpScoreKeepinig.jnlp');">click to launch
-  this app as webstart</a><br>
-<hr>
-<br>
+  <b>Webstart:</b> <a href='PowerUpScoreKeepinig.jnlp' onclick="return launchApplication('PowerUpScoreKeepinig.jnlp');">click to launch this app as webstart</a><br><hr><br>
 
-<!-- Applet will be inserted here -->
-<div id='javafx-app-placeholder'></div>
-</body>
-</html>
+  <!-- Applet will be inserted here -->
+  <div id='javafx-app-placeholder'></div>
+</body></html>

@@ -65,15 +65,15 @@
           <Button mnemonicParsing="false" text="+" fx:id="redBoostCounter"/>
           <ToggleButton style="-fx-background-color: red; -fx-text-fill: white;" layoutX="10.0"
             layoutY="10.0"
-            mnemonicParsing="false" text="Boost"
-            fx:id="redBoost"/>
+            mnemonicParsing="false"
+            text="Boost" fx:id="redBoost"/>
         </HBox>
         <HBox>
           <Button mnemonicParsing="false" text="+" fx:id="redLevitateCounter"/>
           <ToggleButton style="-fx-background-color: red; -fx-text-fill: white;" layoutX="10.0"
             layoutY="49.0"
-            mnemonicParsing="false" text="Levitate"
-            fx:id="redLevitate"/>
+            mnemonicParsing="false"
+            text="Levitate" fx:id="redLevitate"/>
         </HBox>
       </VBox>
     </HBox>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp xmlns:jfx="http://javafx.com" href="PowerUpScoreKeepinig.jnlp" spec="1.0">
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="PowerUpScoreKeepinig.jnlp">
   <information>
     <title>Power Up Score Keeper</title>
     <vendor>Marius Juston</vendor>
@@ -7,10 +7,9 @@
     <offline-allowed/>
   </information>
   <resources>
-    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.6+"/>
-    <jar download="eager" href="PowerUpScoreKeepinig.jar" size="10802"/>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="PowerUpScoreKeepinig.jar" size="12910" download="eager" />
   </resources>
-  <jfx:javafx-desc height="400" main-class="org.waltonrobotics.Main" name="PowerUpScoreKeepinig"
-    width="600"/>
+  <jfx:javafx-desc  width="600" height="400" main-class="org.waltonrobotics.Main"  name="PowerUpScoreKeepinig" />
   <update check="background"/>
 </jnlp>

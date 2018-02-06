@@ -5,6 +5,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.WritableIntegerValue;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -12,6 +13,7 @@ import javafx.util.Duration;
 class FieldElement {
 
 	private static final SecureRandom secureRandom = new SecureRandom();
+	public static SimpleIntegerProperty blueScore, redScore;
 	private static boolean stop;
 	private final Button[] buttons;
 	private final Color color;
@@ -22,7 +24,7 @@ class FieldElement {
 	private Button redSide;
 	private Button blueSide;
 
-	public FieldElement(Button rightSide, Button neutral, Button leftSide,
+	FieldElement(Button rightSide, Button neutral, Button leftSide,
 		Color color, SimpleIntegerProperty pointsProperty, SimpleIntegerProperty oppositeProperty) {
 		this(rightSide, neutral, leftSide, color, pointsProperty);
 
@@ -32,7 +34,8 @@ class FieldElement {
 		timeline2.setCycleCount(Animation.INDEFINITE);
 	}
 
-	public FieldElement(Button rightSide, Button neutral, Button leftSide,
+
+	FieldElement(Button rightSide, Button neutral, Button leftSide,
 		Color color, SimpleIntegerProperty pointsProperty) {
 		this.color = color;
 		buttons = new Button[]{rightSide, neutral, leftSide};
@@ -58,22 +61,35 @@ class FieldElement {
 		timeline.setCycleCount(Animation.INDEFINITE);
 	}
 
-	public Button[] getButtons() {
-		return buttons;
+	public static void setBlueScore(SimpleIntegerProperty blueScore) {
+		FieldElement.blueScore = blueScore;
 	}
 
-	public int getScore() {
-		return score;
+	public static void setRedScore(SimpleIntegerProperty redScore) {
+		FieldElement.redScore = redScore;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	private void update(SimpleIntegerProperty simpleIntegerProperty, int score) {
+	private static void update(WritableIntegerValue simpleIntegerProperty, int score) {
 		if (!stop) {
 			simpleIntegerProperty.set(simpleIntegerProperty.get() + score);
 		}
+	}
+
+	public static final void play() {
+		stop = false;
+
+	}
+
+	public final Button[] getButtons() {
+		return buttons;
+	}
+
+	public final int getScore() {
+		return score;
+	}
+
+	public final void setScore(int score) {
+		this.score = score;
 	}
 
 	private void changeObserved(int oldSelected, int newSelected) {
@@ -89,17 +105,31 @@ class FieldElement {
 			if (newSelected == 1) {
 				timeline.stop();
 				timeline2.stop();
-			} else if (newButton == (color == Color.RED ? getRedSide() : getBlueSide())) {
+			} else if (newButton == (color == Color.RED ? redSide : blueSide)) {
+				System.out.println("MY COLOR");
+				if (color == Color.BLUE) {
+					blueScore.set(blueScore.get() + score);
+				} else {
+					redScore.set(redScore.get() + score);
+				}
+
 				timeline.play();
 				timeline2.stop();
 			} else {
+				System.out.println("OPPONENT COLOR");
+				if (color == Color.BLUE) {
+					redScore.set(redScore.get() + score);
+				} else {
+					blueScore.set(blueScore.get() + score);
+				}
+
 				timeline.stop();
 				timeline2.play();
 			}
 		}
 	}
 
-	public void randomizeSides() {
+	public final void randomizeSides() {
 		boolean rightIsBlue = secureRandom.nextBoolean();
 
 		if (rightIsBlue) {
@@ -119,44 +149,36 @@ class FieldElement {
 		}
 	}
 
-	public Button getBlueSide() {
+	public final Button getBlueSide() {
 		return blueSide;
 	}
 
-	public Button getNeutral() {
+	public final Button getNeutral() {
 		return buttons[1];
 	}
 
-	public void stop() {
+	public final void stop() {
 		stop = true;
 
 		timeline2.stop();
 		timeline.stop();
 	}
 
-	public Button getRedSide() {
+	public final Button getRedSide() {
 		return redSide;
 	}
 
-	public void play() {
-		stop = false;
-
-	}
-
-	public int getPossessedSide() {
+	public final int getPossessedSide() {
 		return possessedSide.get();
 	}
 
 
-	public void setPossessedSide(int possessedSide) {
+	public final void setPossessedSide(int possessedSide) {
 		this.possessedSide.set(possessedSide);
 	}
 
-	public SimpleIntegerProperty possessedSideProperty() {
-		return possessedSide;
-	}
 
-	public void reset() {
+	public final void reset() {
 		possessedSide.set(1);
 		stop();
 	}
