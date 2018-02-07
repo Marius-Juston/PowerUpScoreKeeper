@@ -12,7 +12,8 @@ import javafx.util.Duration;
 class FieldElement {
 
 
-	public static SimpleIntegerProperty blueScore, redScore;
+	private static SimpleIntegerProperty blueScore;
+	private static SimpleIntegerProperty redScore;
 	private static boolean stop;
 	private final Button[] buttons;
 	private final Color color;
@@ -24,40 +25,40 @@ class FieldElement {
 	private Button blueSide;
 
 	FieldElement(Button rightSide, Button neutral, Button leftSide,
-		Color color, SimpleIntegerProperty pointsProperty, SimpleIntegerProperty oppositeProperty) {
+		Color color, SimpleIntegerProperty pointsProperty, WritableIntegerValue oppositeProperty) {
 		this(rightSide, neutral, leftSide, color, pointsProperty);
 
-		timeline2.getKeyFrames().add(new KeyFrame(
+		this.timeline2.getKeyFrames().add(new KeyFrame(
 			Duration.seconds(1),
-			event -> update(oppositeProperty, score)));
-		timeline2.setCycleCount(Animation.INDEFINITE);
+			event -> FieldElement.update(oppositeProperty, this.score)));
+		this.timeline2.setCycleCount(Animation.INDEFINITE);
 	}
 
 
 	FieldElement(Button rightSide, Button neutral, Button leftSide,
-		Color color, SimpleIntegerProperty pointsProperty) {
+		Color color, WritableIntegerValue pointsProperty) {
 		this.color = color;
-		buttons = new Button[]{rightSide, neutral, leftSide};
+		this.buttons = new Button[]{rightSide, neutral, leftSide};
 
-		possessedSide.addListener(
-			(observable, oldValue, newValue) -> changeObserved(oldValue.intValue(),
+		this.possessedSide.addListener(
+			(observable, oldValue, newValue) -> this.changeObserved(oldValue.intValue(),
 				newValue.intValue()));
-		possessedSide.set(1);
+		this.possessedSide.set(1);
 
-		for (int i = 0; i < buttons.length; i++) {
+		for (int i = 0; i < this.buttons.length; i++) {
 			int finalI = i;
-			buttons[i].setOnAction(event -> {
-					if (!stop) {
-						possessedSide.set(finalI);
+			this.buttons[i].setOnAction(event -> {
+					if (!FieldElement.stop) {
+						this.possessedSide.set(finalI);
 					}
 				}
 			);
 		}
 
-		timeline.getKeyFrames().add(new KeyFrame(
+		this.timeline.getKeyFrames().add(new KeyFrame(
 			Duration.seconds(1),
-			event -> update(pointsProperty, score)));
-		timeline.setCycleCount(Animation.INDEFINITE);
+			event -> FieldElement.update(pointsProperty, this.score)));
+		this.timeline.setCycleCount(Animation.INDEFINITE);
 	}
 
 	public static void setBlueScore(SimpleIntegerProperty blueScore) {
@@ -69,22 +70,18 @@ class FieldElement {
 	}
 
 	private static void update(WritableIntegerValue simpleIntegerProperty, int score) {
-		if (!stop) {
+		if (!FieldElement.stop) {
 			simpleIntegerProperty.set(simpleIntegerProperty.get() + score);
 		}
 	}
 
 	public static final void play() {
-		stop = false;
+		FieldElement.stop = false;
 
 	}
 
 	public final Button[] getButtons() {
-		return buttons;
-	}
-
-	public final int getScore() {
-		return score;
+		return this.buttons;
 	}
 
 	public final void setScore(int score) {
@@ -94,36 +91,36 @@ class FieldElement {
 	private void changeObserved(int oldSelected, int newSelected) {
 		String setSelected = ";-fx-border-width: 2;-fx-border-color: violet";
 
-		Button oldButton = buttons[oldSelected];
+		Button oldButton = this.buttons[oldSelected];
 		oldButton.setStyle(oldButton.getStyle().replace(setSelected, ""));
 
-		Button newButton = buttons[newSelected];
+		Button newButton = this.buttons[newSelected];
 		newButton.setStyle(newButton.getStyle() + setSelected);
 
-		if (!stop) {
+		if (!FieldElement.stop) {
 			if (newSelected == 1) {
-				timeline.stop();
-				timeline2.stop();
-			} else if (newButton == (color == Color.RED ? redSide : blueSide)) {
+				this.timeline.stop();
+				this.timeline2.stop();
+			} else if (newButton == ((this.color == Color.RED) ? this.redSide : this.blueSide)) {
 //				System.out.println("MY COLOR");
-				if (color == Color.BLUE) {
-					blueScore.set(blueScore.get() + score);
+				if (this.color == Color.BLUE) {
+					FieldElement.blueScore.set(FieldElement.blueScore.get() + this.score);
 				} else {
-					redScore.set(redScore.get() + score);
+					FieldElement.redScore.set(FieldElement.redScore.get() + this.score);
 				}
 
-				timeline.play();
-				timeline2.stop();
+				this.timeline.play();
+				this.timeline2.stop();
 			} else {
 //				System.out.println("OPPONENT COLOR");
-				if (color == Color.BLUE) {
-					redScore.set(redScore.get() + score);
+				if (this.color == Color.BLUE) {
+					FieldElement.redScore.set(FieldElement.redScore.get() + this.score);
 				} else {
-					blueScore.set(blueScore.get() + score);
+					FieldElement.blueScore.set(FieldElement.blueScore.get() + this.score);
 				}
 
-				timeline.stop();
-				timeline2.play();
+				this.timeline.stop();
+				this.timeline2.play();
 			}
 		}
 	}
@@ -131,43 +128,39 @@ class FieldElement {
 	public final void randomizeSides(boolean rightIsBlue) {
 
 		if (rightIsBlue) {
-			blueSide = buttons[0];
-			blueSide.setStyle("-fx-background-color: blue");
+			this.blueSide = this.buttons[0];
+			this.blueSide.setStyle("-fx-background-color: blue");
 
-			redSide = buttons[2];
-			redSide.setStyle("-fx-background-color: red");
+			this.redSide = this.buttons[2];
+			this.redSide.setStyle("-fx-background-color: red");
 
 		} else {
 
-			blueSide = buttons[2];
-			blueSide.setStyle("-fx-background-color: blue");
+			this.blueSide = this.buttons[2];
+			this.blueSide.setStyle("-fx-background-color: blue");
 
-			redSide = buttons[0];
-			redSide.setStyle("-fx-background-color: red");
+			this.redSide = this.buttons[0];
+			this.redSide.setStyle("-fx-background-color: red");
 		}
 	}
 
 	public final Button getBlueSide() {
-		return blueSide;
-	}
-
-	public final Button getNeutral() {
-		return buttons[1];
+		return this.blueSide;
 	}
 
 	public final void stop() {
-		stop = true;
+		FieldElement.stop = true;
 
-		timeline2.stop();
-		timeline.stop();
+		this.timeline2.stop();
+		this.timeline.stop();
 	}
 
 	public final Button getRedSide() {
-		return redSide;
+		return this.redSide;
 	}
 
 	public final int getPossessedSide() {
-		return possessedSide.get();
+		return this.possessedSide.get();
 	}
 
 
@@ -177,7 +170,7 @@ class FieldElement {
 
 
 	public final void reset() {
-		possessedSide.set(1);
-		stop();
+		this.possessedSide.set(1);
+		this.stop();
 	}
 }
