@@ -1,6 +1,5 @@
 package org.waltonrobotics;
 
-import java.security.SecureRandom;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,7 +11,7 @@ import javafx.util.Duration;
 
 class FieldElement {
 
-	private static final SecureRandom secureRandom = new SecureRandom();
+
 	public static SimpleIntegerProperty blueScore, redScore;
 	private static boolean stop;
 	private final Button[] buttons;
@@ -106,7 +105,7 @@ class FieldElement {
 				timeline.stop();
 				timeline2.stop();
 			} else if (newButton == (color == Color.RED ? redSide : blueSide)) {
-				System.out.println("MY COLOR");
+//				System.out.println("MY COLOR");
 				if (color == Color.BLUE) {
 					blueScore.set(blueScore.get() + score);
 				} else {
@@ -116,7 +115,7 @@ class FieldElement {
 				timeline.play();
 				timeline2.stop();
 			} else {
-				System.out.println("OPPONENT COLOR");
+//				System.out.println("OPPONENT COLOR");
 				if (color == Color.BLUE) {
 					redScore.set(redScore.get() + score);
 				} else {
@@ -129,8 +128,7 @@ class FieldElement {
 		}
 	}
 
-	public final void randomizeSides() {
-		boolean rightIsBlue = secureRandom.nextBoolean();
+	public final void randomizeSides(boolean rightIsBlue) {
 
 		if (rightIsBlue) {
 			blueSide = buttons[0];

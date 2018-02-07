@@ -2,6 +2,7 @@ package org.waltonrobotics;
 
 import java.awt.Toolkit;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ import javafx.util.Duration;
 public class Controller implements Initializable {
 
 	private static final long timeIncrement = 100;
+	private static final SecureRandom secureRandom = new SecureRandom();
 	private final SimpleDoubleProperty seconds = new SimpleDoubleProperty(0.0);
 	private final FieldElement[] fieldElements = new FieldElement[3];
 	private final SimpleIntegerProperty blueScore = new SimpleIntegerProperty(0);
@@ -117,9 +119,11 @@ public class Controller implements Initializable {
 	}
 
 	private void randomizeElements() {
-		for (FieldElement fieldElement : fieldElements) {
-			fieldElement.randomizeSides();
-		}
+		boolean rightIsBlue = secureRandom.nextBoolean();
+
+		fieldElements[0].randomizeSides(rightIsBlue);
+		fieldElements[1].randomizeSides(secureRandom.nextBoolean());
+		fieldElements[2].randomizeSides(rightIsBlue);
 	}
 
 	@Override
@@ -154,7 +158,6 @@ public class Controller implements Initializable {
 			event -> {
 				seconds.set(seconds.doubleValue() + timeIncrement / 1000.0);
 				if (!alreadyRun.get() && Math.round(seconds.get()) == 15.0) {
-					System.out.println("Print");
 					Toolkit.getDefaultToolkit().beep();
 					setScore(1);
 					alreadyRun.set(true);
@@ -242,7 +245,7 @@ public class Controller implements Initializable {
 
 		powerUp(redScore, redBoost, redBoostCounter, redBoostCount, () -> {
 			if (gameToggleButton.isSelected()) {
-				System.out.println("RED BOOST");
+//				System.out.println("RED BOOST");
 				Timeline timeline1 = new Timeline();
 
 				switch (redBoostCount.get()) {
@@ -291,7 +294,7 @@ public class Controller implements Initializable {
 		powerUp(blueScore, blueBoost, blueBoostCounter, blueBoostCount, () -> {
 
 			if (gameToggleButton.isSelected()) {
-				System.out.println("BLUE BOOST");
+//				System.out.println("BLUE BOOST");
 				Timeline timeline1 = new Timeline();
 
 				switch (blueBoostCount.get()) {
@@ -343,7 +346,7 @@ public class Controller implements Initializable {
 		powerUp(redScore, redForce, redForceCounter, redForceCount, () -> {
 
 			if (gameToggleButton.isSelected()) {
-				System.out.println("RED FORCE");
+//				System.out.println("RED FORCE");
 				Timeline timeline1 = new Timeline();
 
 				int[] current = new int[3];
@@ -410,7 +413,7 @@ public class Controller implements Initializable {
 		powerUp(blueScore, blueForce, blueForceCounter, blueForceCount, () -> {
 
 			if (gameToggleButton.isSelected()) {
-				System.out.println("BLUE FORCE");
+//				System.out.println("BLUE FORCE");
 				Timeline timeline1 = new Timeline(); // TODO put Timeline outside and inside the game start/stop event handler
 
 				int[] current = new int[3];
@@ -477,7 +480,7 @@ public class Controller implements Initializable {
 
 		powerUp(redScore, redLevitate, redLevitateCounter, redLevitateCount, () -> {
 
-			System.out.println("RED LEVITATE");
+//			System.out.println("RED LEVITATE");
 
 			if (gameToggleButton.isSelected()) {
 				nextPower();
@@ -488,7 +491,7 @@ public class Controller implements Initializable {
 			}
 		});
 		powerUp(blueScore, blueLevitate, blueLevitateCounter, blueLevitateCount, () -> {
-			System.out.println("BLUE LEVITATE");
+//			System.out.println("BLUE LEVITATE");
 			if (gameToggleButton.isSelected()) {
 				nextPower();
 
